@@ -5,24 +5,47 @@ on:
   pull_request:
 
 jobs:
+  build-windows:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install requirements
+        run: |
+          git clone --branch=v2.5 --depth=1 https://github.com/uic-evl/omicron.git omicron
+          sudo apt-get install gcc-mingw-w64
+          export CC='x86_64-w64-mingw32-gcc -Iomicron/external/include/ddk';
+          export UNAME=Windows;
+      - name: Compile
+        run: |
+          make all
+      - name: List result
+        run: |
+           ls -r .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Windows
+          path: edbg.exe
+
   build-ubuntu:
     runs-on: ubuntu-18.04
     steps:
      - name: Checkout
        uses: actions/checkout@v1
-     - name: Install libusb
+     - name: Install requirements
        run: |
-         sudo apt-get install libudev-dev
+         sudo apt-get -y update
+         sudo apt-get -y install libudev-dev
      - name: Compile
        run: |
          make all
      - name: List result
        run: |
           ls -r .
-     # - uses: actions/upload-artifact@v2
-     #   with:
-     #     name: Ubuntu
-     #     path: dist/
+     - uses: actions/upload-artifact@v2
+       with:
+         name: Ubuntu
+         path: edbg
 
   build-macos:
     runs-on: macOS-latest
@@ -34,14 +57,14 @@ jobs:
           brew install hidapi;
       - name: Check requirements
         run: |
-          brew list --versions hidapi;
+          brew list --versions hidapi
       - name: Compile
         run: |
           make all
       - name: List result
         run: |
            ls -r .
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: macOS
-      #     path: dist/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: macOS
+          path: edbg
