@@ -7,6 +7,9 @@ on:
 jobs:
   build-windows:
     runs-on: ubuntu-18.04
+    env:
+      CC: x86_64-w64-mingw32-gcc -Iomicron/external/include/ddk
+      UNAME: Windows
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -16,13 +19,9 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install libudev-dev
           sudo apt-get install gcc-mingw-w64
-          export CC='x86_64-w64-mingw32-gcc -Iomicron/external/include/ddk'
-          export UNAME=Windows
       - name: Compile
         run: |
-          echo $UNAME
           make all
-          mv edbg edbg.exe
       - name: List result
         run: |
            ls -r .
