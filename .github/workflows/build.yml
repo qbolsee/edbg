@@ -13,9 +13,11 @@ jobs:
       - name: Install requirements
         run: |
           git clone --branch=v2.5 --depth=1 https://github.com/uic-evl/omicron.git omicron
+          sudo apt-get -y update
+          sudo apt-get -y install libudev-dev
           sudo apt-get install gcc-mingw-w64
-          export CC='x86_64-w64-mingw32-gcc -Iomicron/external/include/ddk';
-          export UNAME=Windows;
+          export CC='x86_64-w64-mingw32-gcc -Iomicron/external/include/ddk'
+          export UNAME=Windows
       - name: Compile
         run: |
           make all
