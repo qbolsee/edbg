@@ -1,0 +1,47 @@
+name: Release workflow
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-18.04
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v1
+     - name: Install libusb
+       run: |
+         sudo apt-get install libudev-dev
+     - name: Compile
+       run: |
+         make all
+     - name: List result
+       run: |
+          ls -r .
+     # - uses: actions/upload-artifact@v2
+     #   with:
+     #     name: Ubuntu
+     #     path: dist/
+
+  build-macos:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install requirements
+        run: |
+          brew install hidapi;
+      - name: Check requirements
+        run: |
+          brew list --versions hidapi;
+      - name: Compile
+        run: |
+          make all
+      - name: List result
+        run: |
+           ls -r .
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: macOS
+      #     path: dist/
