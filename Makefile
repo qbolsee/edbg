@@ -1,6 +1,7 @@
 COMPILER ?= gcc
 UNAME ?= $(shell uname)
 
+$(info COMPILER=$(COMPILER))
 $(info UNAME=$(UNAME))
 
 SRCS = \
