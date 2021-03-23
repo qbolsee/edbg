@@ -45,6 +45,7 @@ before_install:
   # Installing the libhidapi via brew
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install hidapi;
+      brew info hidapi;
     fi
 
 
