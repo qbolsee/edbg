@@ -1,6 +1,8 @@
 COMPILER ?= gcc
 UNAME ?= $(shell uname)
 
+$(info UNAME=$(UNAME))
+
 SRCS = \
   dap.c \
   edbg.c \
@@ -50,4 +52,3 @@ $(BIN): $(SRCS) $(HDRS)
 
 clean:
 	rm -rvf $(BIN)
-

@@ -20,6 +20,7 @@ jobs:
           export UNAME=Windows
       - name: Compile
         run: |
+          echo $UNAME
           make all
           mv edbg edbg.exe
       - name: List result
