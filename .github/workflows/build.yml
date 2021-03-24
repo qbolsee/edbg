@@ -29,6 +29,32 @@ jobs:
         with:
           name: Windows
           path: edbg.exe
+    
+  build-arm:
+    runs-on: ubuntu-18.04
+    env:
+      COMPILER: arm-none-eabi-gcc
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v1
+     - name: Install requirements
+       run: |
+         sudo apt-get -y update
+         sudo apt-get -y install libudev-dev
+     - name: arm-none-eabi-gcc
+       uses: fiam/arm-none-eabi-gcc@v1
+       with:
+         release: '9-2019-q4' # The arm-none-eabi-gcc release to use.
+     - name: Compile
+       run: |
+         make all
+     - name: List result
+       run: |
+          ls -r .
+     - uses: actions/upload-artifact@v2
+       with:
+         name: Linux-arm
+         path: edbg
 
   build-ubuntu:
     runs-on: ubuntu-18.04
@@ -47,7 +73,7 @@ jobs:
           ls -r .
      - uses: actions/upload-artifact@v2
        with:
-         name: Ubuntu
+         name: Linux-amd64
          path: edbg
 
   build-macos:
