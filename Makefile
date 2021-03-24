@@ -29,6 +29,9 @@ ifeq ($(UNAME), Linux)
   LIBS += -ludev
 else
   ifeq ($(UNAME), LinuxArm)
+    BIN = edbg
+    SRCS += dbg_lin.c
+    LIBS += -ludev
     CFLAGS += -I/usr/local/include/
   else
     ifeq ($(UNAME), Darwin)
