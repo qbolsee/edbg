@@ -84,4 +84,3 @@ Fuse operations:
   -F wv,*,fuses.bin    -- write and verify all fuses from a file
   -F w0,1,1;w1,5,0     -- set fuse bit 1 in section 0 and clear fuse bit 5 in section 1
 ```
-
