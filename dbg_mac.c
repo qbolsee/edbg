@@ -15,7 +15,7 @@
 /*- Variables ---------------------------------------------------------------*/
 static hid_device *handle = NULL;
 static uint8_t hid_buffer[DBG_MAX_EP_SIZE + 1];
-static int report_size = 512; // TODO: read actual report size
+static int report_size = 64; // TODO: read actual report size
 
 /*- Implementations ---------------------------------------------------------*/
 
@@ -119,4 +119,3 @@ int dbg_dap_cmd(uint8_t *data, int resp_size, int req_size)
 
   return res;
 }
-
